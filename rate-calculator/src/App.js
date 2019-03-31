@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-import HomeTemplate from './templates/main';
+import TemplateContainer from './templates/template-container';
 
 class App extends Component {
   render() {
     return (
       <>
-        <HomeTemplate />
+        <TemplateContainer />
       </>
     );
   }

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-class email extends Component {
+class EmailTemplate extends Component {
   render() {
     return (
       <div>
@@ -10,4 +10,4 @@ class email extends Component {
   }
 }
 
-export default email;
+export default EmailTemplate;

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-class development extends Component {
+class DevelopmentTemplate extends Component {
   render() {
     return (
       <div>
@@ -10,4 +10,4 @@ class development extends Component {
   }
 }
 
-export default development;
+export default DevelopmentTemplate;

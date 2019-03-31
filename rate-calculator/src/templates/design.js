@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-class design extends Component {
+class DesignTemplate extends Component {
   render() {
     return (
       <div>
@@ -10,4 +10,4 @@ class design extends Component {
   }
 }
 
-export default design;
+export default DesignTemplate;
