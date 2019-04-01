@@ -6,12 +6,13 @@ import DevelopmentTemplate from './development';
 import EmailTemplate from './email';
 import HomeTemplate from './main';
 import StrategyTemplate from './strategy';
+import SummaryTemplate from './summary';
 
 class TemplateContainer extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      activeStep: '',
+      activeStep: "",
       nextSteps: ["","general"],
       navButtons: ["design", "development", "strategy", "email"],
     }
@@ -37,16 +38,33 @@ class TemplateContainer extends Component {
     }
   }
 
-  findNextStep = () => {
+  findCurrentIndex = () => {
     const { nextSteps, activeStep } = this.state;
     const currentIndex = nextSteps.findIndex(step => step === activeStep);
-    const stepped = +currentIndex + 1;
-    return nextSteps[stepped];
+     return currentIndex;
   }
 
-  advanceCurrentStep = () => {
+  findNextStep = () => {
+    const { nextSteps } = this.state;
+    const stepUp = +this.findCurrentIndex() + 1;
+    return nextSteps[stepUp];
+  }
+
+  findPrevStep = () => {
+    const { nextSteps } = this.state;
+    const stepDown = +this.findCurrentIndex() - 1;
+    return nextSteps[stepDown];
+  }
+
+  advanceCurrentStep = type => {
     const nextStep = this.findNextStep();
-    this.setState({ activeStep: nextStep })
+    const prevStep = this.findPrevStep();
+    if (type === 'next') {
+      this.setState({ activeStep: nextStep })
+    }
+    if (type === 'prev') {
+      this.setState({ activeStep: prevStep })
+    }
   }
 
   renderSwitch = step => {
@@ -64,7 +82,26 @@ class TemplateContainer extends Component {
       case 'email':
         return <EmailTemplate />;
       default:
-        return 'nothing';
+        return <SummaryTemplate />;
+    }
+  }
+
+  renderButton = step => {
+    switch(step) {
+      case '':
+        return 'Start Form';
+      case 'general':
+        return 'Continue';
+      case 'design':
+        return 'Continue';
+      case 'development':
+        return 'Continue';
+      case 'strategy':
+        return 'Continue';
+      case 'email':
+        return 'Continue';
+      default:
+        return 'Send Estimated Rate & Info';
     }
   }
   
@@ -79,7 +116,8 @@ class TemplateContainer extends Component {
           <h2 className="wordmark">Quote Calculator</h2>
           {this.renderSwitch(activeStep)}
           <div className="template-navigation-container">
-          <button type="button" className="btn navigation-btn" onClick={this.advanceCurrentStep}>Start Form</button>
+            {activeStep !== '' && <button className="btn" onClick={() => this.advanceCurrentStep('prev')}>Previous</button>}
+            <button type="button" className="btn navigation-btn" onClick={() => this.advanceCurrentStep('next')}>{this.renderButton(activeStep)}</button>
           </div>
         </div>
       </div>

@@ -36,8 +36,7 @@
 
 .container {
   width: 100vh;
-  height: 70vh;
-  margin: 0 auto;
+  margin: 30px auto 0 auto;
   border: 1px solid #ddd;
   padding: 20px 40px;
   background-color: #fff;
@@ -77,5 +76,22 @@
     width: 100%;
     margin: 6rem auto 0 auto;
     text-align: center;
+  }
+  &-body {
+    width: 74%;
+    margin: 40px auto;
+
+    p {
+      display: flex;
+      justify-content: space-around;
+
+      span {
+        font-weight: bold;
+      }
+    }
+
+    input {
+      width: 100%;
+    }
   }
 }
