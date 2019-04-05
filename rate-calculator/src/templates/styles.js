@@ -33,16 +33,17 @@ export default {
     width: '75%',
   },
   slider: {
-    height: 40,
+    height: 20,
   },
   trackStyle: {
-    height: 4,
+    height: 5,
     backgroundColor: '#e6e6e6',
     border: 'transparent',
     top: 7,
+    boxShadow: 'inset 0px 1px 4px rgba(0, 0, 0, 1)'
   },
   highlightedTrackStyle: {
-    height: 4,
+    height: 5,
     backgroundColor: '#ff8100',
     border: 'transparent',
     top: 7,

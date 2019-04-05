@@ -1,17 +1,17 @@
 import React, { Component } from 'react';
 import { RangeSlider } from 'reactrangeslider';
+import Slider from '../inputs/slider/slider';
 import styles from './styles';
 
 class GeneralTemplate extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      budget: '1000',
-      budget2: {
+      budget: {
         start: 1000,
         end: 5000,
       },
-      timeframe: '1',
+      timeframe: 1,
       startDate: '',
       rushjob: false,
     }
@@ -21,8 +21,8 @@ class GeneralTemplate extends Component {
     this.setState({[event.target.name]: event.target.value});
   }
 
-  onChange = (budget2) => {
-    this.setState({ budget2 });
+  onChange = (budget) => {
+    this.setState({ budget });
   };
 
   handleCheckbox = event => {
@@ -35,14 +35,10 @@ class GeneralTemplate extends Component {
         <h3 className="template-title">General Work Specifications</h3>
         <p className="template-subtitle">There are some quick questions that will help us create a ballpark figure. Be specific and as detailed as possible.</p>
         <div className="template-body">
-          <p>What is your estimated budget? <span>${this.state.budget}</span></p>
-          <input type="range" name="budget" min="1000" max="20000" step="1000" value={this.state.budget} onChange={this.handleChange} />
-        </div>
-        <div className="template-body">
-          <p>What is your estimated budget? <span>${this.state.budget2.start} - ${this.state.budget2.end}</span></p>
+          <p>What is your estimated budget? <span>${this.state.budget.start} - ${this.state.budget.end}</span></p>
           <RangeSlider
             step={1000}
-            value={this.state.budget2}
+            value={this.state.budget}
             min={1000}
             max={20000}
             onChange={this.onChange}
@@ -57,7 +53,14 @@ class GeneralTemplate extends Component {
         </div>
         <div className="template-body">
           <p>What is your estimated timeframe? <span>{this.state.timeframe} {this.state.timeframe > 1 ? 'Months' : 'Month'}</span></p>
-          <input type="range" name="timeframe" min="1" max="24" step="1" value={this.state.timeframe} onChange={this.handleChange} />
+          <Slider
+            value={this.state.timeframe}
+            onChange={this.handleChange}
+            min={1}
+            max={24}
+            step={1}
+            sliderName="timeframe"
+          />
         </div>
         <div className="template-body">
           <p>What is your estimated start date? <span>{this.state.startDate}</span></p>
