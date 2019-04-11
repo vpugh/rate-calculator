@@ -12,6 +12,8 @@ class DoubleSlider extends Component {
       endMin: '',
       endMax:'',
     };
+    this.startSlider = React.createRef();
+    this.endSlider = React.createRef();
   }
 
   componentDidMount() {
@@ -24,13 +26,21 @@ class DoubleSlider extends Component {
     }, null);
   }
 
-  componentDidUpdate(prevState) {
+  componentDidUpdate(prevProps, prevState) {
     const { startMax, endMin } = this.state;
-    console.log(prevState.endMin, endMin);
-    console.log(prevState.startMax, startMax);
-    if (prevState.startMax !== startMax || prevState.endMin !== endMin) {
-      console.log('update');
+    console.log('Update', this.startSlider.current.max);
+    if (prevState.startMax !== startMax) {
+      console.log(startMax, prevState.startMax)
     }
+    if (prevState.endMin !== endMin) {
+      console.log(endMin, prevState.endMin);
+    }
+    // console.log(prevState.endMin, endMin);
+    // console.log(prevState.startMax, startMax);
+    // if (prevState.startMax !== startMax || prevState.endMin !== endMin) {
+    //   console.log('update');
+    // }
+    console.log('StartMax', startMax, 'EndMin', endMin);
   }
 
   render() {
@@ -40,38 +50,40 @@ class DoubleSlider extends Component {
       step,
     } = this.props;
 
-    const {
-      min,
-      startMax,
-      endMin,
-      max,
-    } = this.state;
-
     const update = (ev) => {
       const { name, id, value } = ev.target;
       console.log(name, id, value);
+      onChange(ev);
       let pivot;
-      if (id === 'a' && value >= Number(startMax)) {
-        pivot = Math.min(max - 1, Number(startMax) + 1);
-        console.log('A Pivot', pivot);
-      }
-      if (id === 'b' && value <= Number(endMin)) {
-        pivot = Math.max(min, Number(endMin) - 2)
-        console.log('B Pivot', pivot);
-      }
-      if (pivot) {
+      if (id === 'a' && value >= Number(this.state.startMax)) {
+        // Math.min returns the lowest value passed to it
+        // this.props.max - 1 (potentially 0) or 
+        pivot = Math.min(this.props.max - 1, Number(this.state.startMax) + 1, 1);
         this.setState({
           startMax: pivot,
           endMin: pivot - 1,
-        }, null);
+        });
       }
-      onChange(ev);
+      if (id === 'b' && value <= Number(this.state.endMin)) {
+        pivot = Math.max(this.props.min, Number(this.state.endMin) - 1, 2)
+        this.setState({
+          startMax: pivot - 1,
+          endMin: pivot,
+        });
+      }
+      console.log('StartMax', this.state.startMax, 'EndMin', this.state.endMin);
+      // if (pivot) {
+      //   this.setState({
+      //     startMax: pivot,
+      //     endMin: pivot - 1,
+      //   }, null);
+      // }
     }
 
     return (
       <div className="slideContainer">
-        <input id="a" type="range" min={min} max={startMax} step={step} value={value.start} name="start" onChange={update} />
-        <input id="b" type="range" min={endMin} max={max} step={step} value={value.end} name="end" onChange={update} />
+        <input ref={this.startSlider} id="a" type="range" min={this.props.min} max={this.state.startMax} step={step} value={value.start} name="start" onChange={update} />
+        <input ref={this.endSlider} id="b" type="range" min={this.state.endMin} max={this.props.max} step={step} value={value.end} name="end" onChange={update} />
       </div>
     );
   }

@@ -7,8 +7,8 @@
   -webkit-appearance: none;  /* Override default CSS styles */
   appearance: none;
   width: 100%; /* Full-width */
-  height: 6px; /* Specified height */
-  background: #e4e4e4; /* Grey background */
+  height: 2px; /* Specified height */
+  background: #828282; /* Grey background */
   outline: none; /* Remove outline */
   box-shadow: inset 0px 0px 5px 0px #d8d8d8;
   border-radius: 6px;
@@ -26,11 +26,12 @@
 .slider::-webkit-slider-thumb {
   -webkit-appearance: none; /* Override default look */
   appearance: none;
-  width: 18px; /* Set a specific slider handle width */
-  height: 18px; /* Slider handle height */
+  width: 28px; /* Set a specific slider handle width */
+  height: 28px; /* Slider handle height */
   background: #e8e8e8; /* Green background */
   border-radius: 50%;
   border: 1px solid #b7b7b7;
+  box-shadow: 0 1px 4px 0.5px rgba(0, 0, 0, 0.15);
   cursor: pointer; /* Cursor on hover */
 }
 

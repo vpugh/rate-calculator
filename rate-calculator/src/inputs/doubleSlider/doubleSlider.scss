@@ -22,6 +22,15 @@ output {
   color: gray;
 }
 
+.min-value,
+.max-value {
+  width: 100%;
+  position: absolute;
+  top: 0;
+  z-index: 2;
+}
+
+
 // .doubleSliderStart,
 // .doubleSliderEnd {
 //   width: 100%;
